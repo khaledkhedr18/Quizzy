@@ -1,18 +1,30 @@
 {% macro show_links() %}
-<ul class="nav justify-content-center bg-dark p-2" >
-    <li class="nav-item">
-      <a class="nav-link active text-light" aria-current="page" href="#">Quizzy</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link text-light" href="#">Login</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link text-light" href="#">Register</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link text-light" href="#">Logout</a>
-    </li>
-  </ul>
-</ul>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Links</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='showlinks.css') }}">
+</head>
+<body>
+    <ul class="nav justify-content-center p-2" >
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{{  url_for('index') }}">Quizzy</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{  url_for('login') }}">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{  url_for('register') }}">Register</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{  url_for('index') }}">Logout</a>
+        </li>
+      </ul>
+    </ul>
+</body>
+</html>
+
 
 {% endmacro %}
