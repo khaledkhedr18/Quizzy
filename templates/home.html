@@ -21,6 +21,10 @@
   <body>
     <div class="parent">
       <div class="header mb-2">{{ show_links() }}</div>
+      {% if success %}
+      <div class="alert alert-success" role="alert">{{ success }}</div>
+      {% endif %}
+
       <div class="Questions_Answered container border p-3">
         <h1>Questions Answered</h1>
         <hr class="text-dark" />
