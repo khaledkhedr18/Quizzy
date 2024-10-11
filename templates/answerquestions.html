@@ -23,18 +23,31 @@
       <div class="header mb-2">{{ show_links(user) }}</div>
       {% if success %}
       <div class="alert alert-success" role="alert">{{ success }}</div>
-      {% endif %} {% if error %}
-      <div class="alert alert-danger" role="alert">{{ error }}</div>
       {% endif %}
 
-      <div class="Questions_Answered container border p-3">
-        <h1>Questions Answered</h1>
+      <div class="Questions_Asked container border p-3">
+        <h1>Answer a question</h1>
         <hr class="text-dark" />
-        <a href="" class="text-dark">
-          <h4>Where did i learn python?</h4>
-          <p>Asked By: Khaled Khedr</p>
-          <p>Answered By: Khaled Khedr</p>
-        </a>
+        <form action="/answerquestions" method="POST">
+          <div>
+            <div class="form-floating mb-3">
+              <textarea
+                class="form-control text-dark"
+                placeholder="Enter your answer."
+                id="floatingTextarea"
+                name="answer_text"
+              ></textarea>
+              <label for="floatingTextarea" class="text-dark"
+                >Answer a question.</label
+              >
+            </div>
+            <div class="text-center">
+              <button type="submit" class="btn btn-sm btn-success">
+                Submit Answer
+              </button>
+            </div>
+          </div>
+        </form>
       </div>
     </div>
     <script

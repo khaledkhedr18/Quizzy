@@ -1,0 +1,70 @@
+{% from "showlinks.html" import show_links %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>User Profile</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='home.css') }}"
+    />
+  </head>
+  <body>
+    <div class="container-fluid">
+      <!-- Use container-fluid for full width -->
+      <div class="header bg-warning text-white mb-2">
+        {{ show_links(user) }}
+      </div>
+      <!-- Added bg-warning for background color -->
+      {% if success %}
+      <div class="alert alert-success" role="alert">{{ success }}</div>
+      {% endif %}
+
+      <h1>User Profile</h1>
+      <div class="card mb-3" style="max-width: 540px">
+        <div class="row g-0">
+          <div class="col-md-4">
+            {% if user_info[5] %}
+            <img
+              src="{{ url_for('static', filename=user_info[5]) }}"
+              class="img-fluid rounded-start"
+              alt="Profile Picture"
+            />
+            {% else %}
+            <img
+              src="{{ url_for('static', filename='default_profile.png') }}"
+              class="img-fluid rounded-start"
+              alt="Default Profile Picture"
+            />
+            {% endif %}
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">{{ user_info[1] }}</h5>
+              <!-- Displaying userInfo data -->
+              <p class="card-text">
+                <b>Teacher:</b> {{ 'Yes' if user_info[3] else 'No' }}<br />
+                <b>Admin:</b> {{ 'Yes' if user_info[4] else 'No' }}<br />
+                <b>User ID:</b> {{ user_info[0] }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

@@ -1,12 +1,14 @@
 from flask import Flask, render_template, url_for, request
-from flask import g, redirect, session, flash
+from flask import g, redirect, session
 from dbConnection import connect_to_db, getDatabase, close_db_connection
 from werkzeug.security import generate_password_hash, check_password_hash
 from mysql.connector import OperationalError
 import os
+from datetime import timedelta
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.urandom(24)
+app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=30)
 
 
 @app.teardown_appcontext
@@ -93,6 +95,7 @@ def login():
 
             name = request.form.get("name")
             password = request.form.get("password")
+            remember_me = request.form.get("remember_me")
 
             if not name or name == "":
                 pageError = "Please, Enter your username!"
@@ -109,6 +112,13 @@ def login():
             # Verify user credentials
             if userAccount and check_password_hash(userAccount[2], password):
                 session['user'] = userAccount[1]
+
+                # check if keep me logged in is checked
+                if remember_me:
+                    session.permanent = True
+                else:
+                    session.permanent = False
+
                 currentUser = get_current_user()
                 return render_template("home.html", success="Login Successful!", user=currentUser)
 
@@ -118,7 +128,7 @@ def login():
 
         except OperationalError as e:
             pageError = "Database connection issue. Please try again later."
-            return render_template("login.html", error=pageError, user=currentUser)
+            return render_template("login.html", user=currentUser, error=pageError)
 
         finally:
             if cursor is not None:
@@ -212,6 +222,63 @@ def promote(id):
         return redirect(url_for('all_users'))
 
     return render_template('users.html', user=user)
+
+
+@app.route('/askquestions', methods=["GET", "POST"])
+def askquestions():
+    success = None
+    currentUser = get_current_user()
+    db = getDatabase()
+    cursor = db.cursor()
+    if request.method == "POST":
+        question = request.form.get("question")
+        teacher = request.form.get("teacher")
+        cursor.execute(
+            "select * from users where id = %s", (teacher,))
+        teacher_result = cursor.fetchone()
+        if teacher_result and currentUser:
+            cursor.execute(
+                "insert into questions (question_text, asked_by_id, teacher_id, teacher_name, asked_by_name) values (%s, %s, %s, %s, %s)", (question, currentUser[0], teacher, teacher_result[1], currentUser[1] if currentUser else None))
+            db.commit()
+            success = "Question asked successfully"
+        else:
+            error = "Please, login to ask a question"
+            success = "Invalid teacher"
+            return render_template('home.html', error=error, user=currentUser)
+
+    cursor.execute('select * from users')
+    allUsers = cursor.fetchall()
+    cursor.close()
+    db.close()
+    return render_template('askquestions.html', user=currentUser, users=allUsers, success=success)
+
+
+@app.route('/answerquestions', methods=["GET", "POST"])
+def answerquestions():
+    currentUser = get_current_user()
+    db = getDatabase()
+    cursor = db.cursor()
+    cursor.execute('select * from users where teacher = 0')
+    allUsers = cursor.fetchall()
+
+    return render_template('answerquestions.html', user=currentUser, users=allUsers)
+
+
+@app.route('/userprofile/<int:id>', methods=["GET"])
+def user_profile(id):
+    currentUser = get_current_user()  # Fetch the current logged-in user
+    db = getDatabase()
+    cursor = db.cursor()
+    cursor.execute('SELECT * FROM users WHERE id = %s', (id,))
+    userInfo = cursor.fetchone()  # Fetch the target user info
+    cursor.close()
+    db.close()
+
+    if userInfo:
+        # Pass currentUser as 'user' and userInfo as 'user_info' to the template
+        return render_template('user_profile.html', user=currentUser, user_info=userInfo)
+    else:
+        return "User not found", 404
 
 
 @app.route("/logout")
