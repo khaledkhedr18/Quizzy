@@ -25,14 +25,29 @@
       <div class="alert alert-success" role="alert">{{ success }}</div>
       {% endif %}
 
-      <div class="Questions_Answered container border p-3">
-        <h1>Questions Answered</h1>
+      <div class="Users container border p-3">
+        <h1>Users</h1>
         <hr class="text-dark" />
-        <a href="" class="text-dark">
-          <h4>Where did i learn python?</h4>
-          <p>Asked By: Khaled Khedr</p>
-          <p>Answered By: Khaled Khedr</p>
-        </a>
+        <br />
+        <div class="list-group">
+          {% if users %} {% for user in users %}
+          <!-- prettier-ignore -->
+          <a
+            href="{{url_for('promote', id=user[0])}}"
+            class="text-dark list-group-item list-group-item-action
+            {% if user[3] == 1 %}
+            teacherLinkColor
+            {% endif %}
+            {% if user[4] == 1 %}
+            adminLinkColor
+            {% endif %}"
+          >
+            Name: {{ user[1] }}, Teacher: {{user[3]}}, Admin: {{user[4]}},
+            User's id: {{user[0]}}</a
+          >
+          <br />
+          {% endfor %} {% endif %}
+        </div>
       </div>
     </div>
     <script

@@ -33,21 +33,32 @@ def get_current_user():
     user_result = None
     if 'user' in session:
         db = getDatabase()
-        cursor = db.cursor()
-        user = session['user']
         if db is None:
             return None
+        cursor = db.cursor()
+        user = session['user']
         cursor.execute("SELECT * FROM users WHERE name = %s", (user,))
         user_result = cursor.fetchone()
+        if user_result:
+            session['user'] = user_result[1]
+            cursor.close()
+            db.close()
+            return user_result
         cursor.close()
         db.close()
-    return user_result
+    return None
 
 
 @app.route("/")
 def index():
     """
     Displays the homepage for Quizzy.
+
+    Displays the links to the login, register and logout pages.
+    If a user is logged in, displays the user's name on the page.
+
+    :return: The rendered homepage
+    :rtype: str
     """
     currentUser = get_current_user()
     return render_template("home.html", user=currentUser)
@@ -56,7 +67,19 @@ def index():
 @app.route("/login", methods=["GET", "POST"])
 def login():
     """
-    Displays the login page for Quizzy.
+    Handles user login.
+
+    If the request is a GET request, it displays the login page.
+    If the request is a POST request, it attempts to log in the user
+    with the given username and password. If the username or password
+    is invalid, it displays the login page again with an appropriate
+    error message.
+
+    If the login is successful, it sets the user's session and redirects
+    them to the homepage with a success message.
+
+    :return: The rendered login page or the homepage with a success message
+    :rtype: str
     """
     pageError = None
     currentUser = get_current_user()
@@ -86,6 +109,7 @@ def login():
             # Verify user credentials
             if userAccount and check_password_hash(userAccount[2], password):
                 session['user'] = userAccount[1]
+                currentUser = get_current_user()
                 return render_template("home.html", success="Login Successful!", user=currentUser)
 
             else:
@@ -107,18 +131,17 @@ def login():
 @app.route("/register", methods=["GET", "POST"])
 def register():
     """
-    Handles the registration of users.
+    Handles the registration of a new user.
 
-    Displays the registration form if the request is a GET request.
-    If the request is a POST request, it attempts to register the user
-    with the given username and password. If the username already exists,
-    or if the password is not more than 8 characters long, it displays
-    the registration form again with an appropriate error message.
+    If the request method is POST, it first checks if the username already exists,
+    and if the password is not empty and more than 8 characters long.
+    If these conditions are met, it inserts the username and hashed password in the database,
+    logs the user in and redirects them to the home page.
+    If not, it renders the registration page with an error message.
 
-    If the registration is successful, it sets the user's session and
-    redirects them to the homepage with a success message.
+    If the request method is GET, it simply renders the registration page.
 
-    :return: The rendered registration form or the homepage with a success message
+    :return: The rendered page
     :rtype: str
     """
     pageError = None
@@ -159,15 +182,47 @@ def register():
         cursor.close()
         db.close()
         session['user'] = name
+        currentUser = get_current_user()
         return render_template("home.html", success="Successfully registered", user=currentUser)
 
     return render_template("register.html", user=currentUser)
 
 
+@app.route('/allusers', methods=["GET", "POST"])
+def all_users():
+    currentUser = get_current_user()
+    db = getDatabase()
+    cursor = db.cursor()
+    cursor.execute('select * from users')
+    allUsers = cursor.fetchall()
+    return render_template('users.html', user=currentUser, users=allUsers)
+
+
+@app.route('/promote/<int:id>', methods=["GET", "POST"])
+def promote(id):
+    user = get_current_user()
+
+    if request.method == "GET":
+        db = getDatabase()
+        cursor = db.cursor()
+        cursor.execute("update users set teacher = true where id = %s", (id,))
+        db.commit()
+        cursor.close()
+        db.close()
+        return redirect(url_for('all_users'))
+
+    return render_template('users.html', user=user)
+
+
 @app.route("/logout")
 def logout():
     """
-    Logs out the user from Quizzy and redirects them to the homepage.
+    Logs out the current user.
+
+    Removes the user from the session and redirects to the homepage.
+
+    :return: The rendered homepage
+    :rtype: str
     """
     session.pop('user', None)
     return redirect(url_for('index'))
