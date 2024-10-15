@@ -67,10 +67,6 @@ If you’re interested in contributing to Quizzy, please reach out via:
 
 Let’s discuss how we can collaborate to improve this platform!
 
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
 ## Screenshots and Demos
 
 Screenshots and demo links will be added soon.
