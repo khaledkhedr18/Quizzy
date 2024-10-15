@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Homepage</title>
+    <title>About Me</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -19,41 +19,37 @@
     />
   </head>
   <body>
-    <!-- Main Content Section -->
     <div class="parent">
       <!-- Navbar -->
       <div class="header mb-2">{{ show_links(user) }}</div>
 
-      {% if success %}
-      <div class="alert alert-success" role="alert">{{ success }}</div>
-      {% endif %} {% if error %}
-      <div class="alert alert-danger" role="alert">{{ error }}</div>
-      {% endif %}
-
-      <!-- Hero Section -->
-      <section
-        class="hero-section text-center text-light d-flex align-items-center justify-content-center"
-      >
-        <div class="container">
-          <h1 class="display-4">Welcome to Our Q&A Platform</h1>
-          <p class="lead">Find answers, and engage with your teachers.</p>
-          {% if not user %}
-          <a
-            href="{{ url_for('login') }}"
-            class="btn btn-primary btn-lg mt-4 text-dark"
-            >Hop in</a
-          >
-          {% endif %}
-        </div>
-      </section>
-
+      <!-- About Content -->
       <div class="container my-5">
-        <div class="about-section text-center">
+        <div class="about-section border p-4">
           <h1>About Me</h1>
           <hr class="text-dark" />
-          <a href="{{ url_for('about') }}" class="btn btn-outline-dark"
-            >Learn More About Me</a
-          >
+          <p><strong>Name:</strong> Khaled Khedr</p>
+          <p><strong>Profession:</strong> Backend Software Engineer</p>
+          <p>
+            <strong>GitHub:</strong>
+            <a href="https://github.com/khaledkhedr18" class="text-dark"
+              >https://github.com/khaledkhedr18</a
+            >
+          </p>
+          <p>
+            <strong>LinkedIn:</strong>
+            <a
+              href="https://www.linkedin.com/in/khaled-khedr-73b811223/"
+              class="text-dark"
+              >https://www.linkedin.com/in/khaled-khedr-73b811223/</a
+            >
+          </p>
+          <p>
+            <strong>GitHub Repo of This Project:</strong>
+            <a href="https://github.com/khaledkhedr18/Quizzy" class="text-dark"
+              >https://github.com/khaledkhedr18/Quizzy</a
+            >
+          </p>
         </div>
       </div>
 

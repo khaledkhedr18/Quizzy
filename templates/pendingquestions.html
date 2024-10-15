@@ -27,40 +27,25 @@
       <div class="alert alert-danger" role="alert">{{ error }}</div>
       {% endif %}
 
-      <div class="Questions_Answered container border p-3">
-        <h1>User Profile</h1>
+      <div class="Questions_Asked container border p-3">
+        <h1>All Your Pending Questions</h1>
         <hr class="text-dark" />
-        <div class="row g-0">
-          <div class="col-md-4">
-            {% if user_info[5] %}
-            <img
-              src="{{ url_for('static', filename=user_info[5]) }}"
-              class="img-fluid rounded-start"
-              alt="Profile Picture"
-            />
-            {% else %}
-            <img
-              src="{{ url_for('static', filename='default_profile.png') }}"
-              class="img-fluid rounded-start"
-              alt="Default Profile Picture"
-            />
-            {% endif %}
-          </div>
-          <div class="col-md-8">
-            <div class="card-body">
-              <h5 class="card-title">{{ user_info[1] }}</h5>
-              <p class="card-text">
-                {% if user_info[3] == 1 %}
-                <b>Role:</b> Teacher<br />
-                {% endif %} {% if user_info[4] == 1 %}
-                <b>Role:</b> Admin<br />
-                {% endif %} {% if user[3] == 0 and user[4] == 0 %}
-                <b>Role:</b> Student<br />
-
-                {% endif %}
-
-                <b>User ID:</b> {{ user_info[0] }}
-              </p>
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="list-group">
+              {% for question in allQuestions %}
+              <div class="list-group-item">
+                <h4 class="list-group-item-heading">
+                  Question: {{ question[1] }}
+                </h4>
+                <h5 class="list-group-item-heading">
+                  Status: Not yet answered
+                </h5>
+                <small class="list-group-item-text"
+                  >Referred to: {{ question[5] }}</small
+                >
+              </div>
+              {% endfor %}
             </div>
           </div>
         </div>

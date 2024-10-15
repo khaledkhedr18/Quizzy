@@ -1,7 +1,70 @@
-.nav {
-  background-color: #ffd166;
+/* General body styling */
+body {
+  background-color: #eef2f3; /* Softer background color */
+  font-family: 'Lato', sans-serif; /* Modern, readable font */
+  color: #333;
+  margin: 0;
+  padding: 0;
 }
 
-.nav-item {
-  color: #333333;
+/* Navbar styling */
+.nav {
+  background-color: #7f8fa6; /* Calming, muted blue */
+  padding: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+}
+
+.nav-item .nav-link {
+  color: #202020;
+  transition: color 0.3s ease;
+}
+
+.nav-item .nav-link:hover {
+  color: #202020; /* Gentle hover color */
+}
+
+.navbar-brand {
+  font-weight: bold;
+  color: #202020; /* Standout color for the brand */
+  font-size: 1.5em;
+}
+
+/* Navbar Toggler Button */
+.navbar-toggler {
+  border: none;
+  background-color: #eef2f3; /* Make it match the theme */
+}
+
+.navbar-toggler-icon {
+  background-image: url('data:image/svg+xml;charset=utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30"><path stroke="rgba%2833,33,33,1%29" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"/></svg>');
+}
+
+/* Styling for teacher and admin links */
+.teacherLinkColor {
+  background-color: #81ecec; /* Softer aqua */
+}
+
+.adminLinkColor {
+  background-color: #55efc4; /* More muted green */
+}
+
+/* User Profile */
+.nav-item a.nav-link {
+  border-radius: 5px;
+  padding: 5px 10px;
+}
+
+.nav-item a.nav-link:hover {
+  background-color: #dfe6e9; /* Soft background on hover */
+}
+
+/* Add spacing and clarity */
+.container {
+  padding: 20px;
+}
+
+/* Additional link hover effect */
+.navbar-nav .nav-item:hover .nav-link {
+  background-color: #dfe6e9;
+  border-radius: 4px;
 }

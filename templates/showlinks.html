@@ -5,61 +5,106 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Links</title>
+    <!-- Bootstrap CDN -->
     <link
       rel="stylesheet"
-      href="{{ url_for('static', filename='home.css') }}"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='showlinks.css') }}"
     />
   </head>
   <body>
-    <ul class="nav justify-content-center p-1">
-      <li class="nav-item">
-        <a
-          class="nav-link active fw-bold"
-          aria-current="page"
-          href="{{  url_for('index') }}"
-          >Quizzy</a
-        >
-      </li>
-      {% if not user %}
-      <li class="nav-item">
-        <a class="nav-link fw-bold" href="{{  url_for('login') }}">Login</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link fw-bold" href="{{  url_for('register') }}"
-          >Register</a
-        >
-      </li>
-      {% endif %} {% if user[4] == 1 %}
-      <li class="nav-item">
-        <a class="nav-link fw-bold" href="{{  url_for('all_users') }}"
-          >All Users</a
-        >
-      </li>
-      {% endif %} {% if user %} {% if user[3] == 0 %}
-      <li class="nav-item">
-        <a class="nav-link fw-bold" href="{{ url_for('askquestions') }}">Ask</a>
-      </li>
-      {% endif %} {% if user[3] == 1 or user[4] == 1 %}
-      <li class="nav-item">
-        <a class="nav-link fw-bold" href="{{ url_for('answerquestions') }}"
-          >Answer</a
-        >
-      </li>
-      {% endif %}
-      <li class="nav-item">
-        <a
-          class="nav-link fw-bold"
-          href="{{  url_for('user_profile', id=user[0])}}"
-          >User : {{ user[1] }}</a
-        >
-      </li>
-      {% endif %} {% if user %}
-      <li class="nav-item">
-        <a class="nav-link fw-bold" href="{{  url_for('logout') }}">Logout</a>
-      </li>
-      {% endif %}
-    </ul>
+    <nav class="navbar navbar-expand-lg">
+      <a class="navbar-brand fw-bold" href="{{ url_for('index') }}">Quizzy</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
+          {% if not user %}
+          <li class="nav-item">
+            <a class="nav-link fw-bold" href="{{ url_for('login') }}">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link fw-bold" href="{{ url_for('register') }}"
+              >Register</a
+            >
+          </li>
+          {% endif %} {% if user[4] == 1 %}
+          <li class="nav-item">
+            <a class="nav-link fw-bold" href="{{ url_for('all_users') }}"
+              >All Users</a
+            >
+          </li>
+          {% endif %} {% if user %} {% if user[3] == 0 %}
+          <li class="nav-item">
+            <a class="nav-link fw-bold" href="{{ url_for('askquestions') }}"
+              >Ask</a
+            >
+          </li>
+          {% endif %} {% if user[3] == 1%}
+          <li class="nav-item">
+            <a
+              class="nav-link fw-bold"
+              href="{{ url_for('unansweredquestions') }}"
+              >Unanswered Questions</a
+            >
+          </li>
+          {% endif %} {% if user[3] == 0%}
+          <li class="nav-item">
+            <a
+              class="nav-link fw-bold"
+              href="{{ url_for('answeredquestions') }}"
+              >Answered Questions</a
+            >
+          </li>
+          {% endif %} {% if user[3] == 1%}
+          <li class="nav-item">
+            <a
+              class="nav-link fw-bold"
+              href="{{ url_for('teacheransweredquestions') }}"
+              >Answered Questions</a
+            >
+          </li>
+          {% endif %} {% if user[3] == 0%}
+          <li class="nav-item">
+            <a class="nav-link fw-bold" href="{{ url_for('pendingquestions') }}"
+              >Pending Questions</a
+            >
+          </li>
+          {% endif %}
+          <li class="nav-item">
+            <a
+              class="nav-link fw-bold"
+              href="{{ url_for('user_profile', id=user[0])}}"
+              >User : {{ user[1] }}</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link fw-bold" href="{{ url_for('logout') }}"
+              >Logout</a
+            >
+          </li>
+          {% endif %}
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Bootstrap JS (necessary for the collapse functionality) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   </body>
 </html>
-
 {% endmacro %}

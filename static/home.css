@@ -1,18 +1,171 @@
+/* General body styling */
 body {
-  background-color: #f0f0f0;
+  background-color: #eef2f3; /* Same soft background color */
+  font-family: 'Lato', sans-serif; /* Consistent, modern font */
+  color: #333; /* Calm, neutral text color */
+  margin: 0;
+  padding: 0;
 }
 
-.teacherLinkColor {
-  background-color: aqua;
-}
-
-.adminLinkColor {
-  background-color: rgb(21, 216, 96);
-}
+/* Navbar styling */
 .nav {
+  background-color: #7f8fa6; /* Consistent calming blue for navigation */
+  padding: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.nav-item .nav-link {
+  color: #000000;
+  transition: color 0.3s ease;
+}
+
+.nav-item .nav-link:hover {
+  color: #ffd166; /* Soft hover effect */
+}
+
+.navbar-brand {
+  font-weight: bold;
+  color: #ffd166;
+  font-size: 1.5em;
+}
+
+/* Navbar Toggler */
+.navbar-toggler {
+  border: none;
   background-color: #ffd166;
 }
 
-.nav-item {
-  color: #333333;
+.navbar-toggler-icon {
+  background-image: url('data:image/svg+xml;charset=utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30"><path stroke="rgba%2833,33,33,1%29" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"/></svg>');
+}
+
+/* Styling for teacher and admin links */
+.teacherLinkColor {
+  background-color: #81ecec; /* Same soft aqua */
+}
+
+.adminLinkColor {
+  background-color: #55efc4; /* Muted green */
+}
+
+/* Questions Answered section */
+.Questions_Answered {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow */
+  padding: 20px;
+  margin-bottom: 20px;
+  transition: transform 0.3s ease;
+}
+
+.Questions_Answered:hover {
+  transform: scale(1.02); /* Slight hover effect to make it interactive */
+}
+
+.Questions_Answered h1 {
+  font-size: 2em;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.Questions_Answered h4 {
+  font-size: 1.5em;
+  color: #2d3436;
+  margin: 10px 0;
+}
+
+.Questions_Answered p {
+  color: #636e72;
+  font-size: 1em;
+  margin-bottom: 5px;
+}
+
+/* Alert messages */
+.alert-success {
+  background-color: #55efc4;
+  color: #2d3436;
+  border: none;
+  border-radius: 5px;
+}
+
+.alert-danger {
+  background-color: #ff7675;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+}
+
+/* Link hover effect */
+a.text-dark:hover {
+  color: #0984e3;
+  text-decoration: none;
+}
+
+/* Additional link hover effect */
+.navbar-nav .nav-item:hover .nav-link {
+  background-color: rgba(255, 209, 102, 0.2);
+  border-radius: 4px;
+}
+/* Hero Section Styling */
+.hero-section {
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url('/path/to/your/image.jpg') center/cover no-repeat;
+  height: 80vh;
+}
+
+.hero-section h1 {
+  font-size: 3.5rem;
+  font-weight: bold;
+}
+
+.hero-section p {
+  font-size: 1.25rem;
+}
+
+.hero-section .btn {
+  background-color: #ffd166;
+  border: none;
+}
+
+/* Footer Styling */
+.footer {
+  background-color: #333;
+  color: #fff;
+}
+
+.footer a {
+  color: #ffd166;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+/* About Section Styling */
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+.parent {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer {
+  margin-top: auto; /* Pushes footer to the bottom */
+  background-color: #343a40;
+  padding: 1em 0;
+  text-align: center;
+  color: #ffffff;
+}
+
+.about-section {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
 }
