@@ -1,3 +1,4 @@
+
 ---
 
 # Quizzy - A Q&A Platform for Students and Teachers
