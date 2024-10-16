@@ -31,7 +31,7 @@
         {% endif %}
 
         <div class="list-group">
-          {% for question in allQuestions %}
+          {% if allQuestions %} {% for question in allQuestions %}
           <a
             href="{{ url_for('answer', question_id=question[0]) }}"
             class="list-group-item list-group-item-action"
@@ -39,7 +39,9 @@
             <h5 class="list-group-item-heading">{{ question[1] }}</h5>
             <p class="mb-1 small">Asked by: {{ question[6] }}</p>
           </a>
-          {% endfor %}
+          {% endfor %} {% else %}
+          <p>All quite at the moment. no questions found!</p>
+          {% endif %}
         </div>
       </div>
     </div>

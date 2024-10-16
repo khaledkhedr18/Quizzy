@@ -33,7 +33,7 @@
         <div class="row">
           <div class="col-lg-12">
             <div class="list-group">
-              {% for question in allQuestions %}
+              {% if allQuestions %} {% for question in allQuestions %}
               <div class="list-group-item">
                 <h4 class="list-group-item-heading">
                   Question: {{ question[1] }}
@@ -45,7 +45,9 @@
                   >Answered By: {{ question[5] }}</small
                 >
               </div>
-              {% endfor %}
+              {% endfor %} {% else %}
+              <p>All quite at the moment. no questions found!</p>
+              {% endif %}
             </div>
           </div>
         </div>
