@@ -69,7 +69,7 @@ Let’s discuss how we can collaborate to improve this platform!
 
 ## Screenshots and Demos
 
-Screenshots and demo links will be added soon.
+- [Demo](https://drive.google.com/drive/folders/1z5jBVA3ChnV6eakCGwhY9-hkLErxBJ6J?usp=sharing)
 
 ## Deployment
 
