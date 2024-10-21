@@ -199,7 +199,7 @@ def register():
         cursor.close()
         db.close()
 
-        session['user'] = name
+        # session['user'] = name
         currentUser = get_current_user()
         return render_template("home.html", success="Successfully registered", user=currentUser)
 
